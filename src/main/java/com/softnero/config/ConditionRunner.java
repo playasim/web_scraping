@@ -1,6 +1,6 @@
 package com.softnero.config;
 
-import com.softnero.Crawler.Crawler;
+import com.softnero.crwaler.Crawler;
 import com.softnero.entity.Comments;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -18,8 +18,11 @@ public class ConditionRunner implements CommandLineRunner {
     private MysqlConfig mysqlConfig;
     @Override
     public void run(String... args) throws Exception {
-        List<Comments> list = Crawler.getCommentInfo(10, 1384071);
         Connection conn = mysqlConfig.getConn();
+        PreparedStatement deleteStatement = conn.prepareStatement("delete from tb_comment");
+        deleteStatement.execute();
+        deleteStatement.close();
+        List<Comments> list = Crawler.getCommentInfo(10, 1384071);
         PreparedStatement psmt = null;
         psmt = conn.prepareStatement("insert into tb_comment(id,nickname,content,update_time)" +
                 "values(?,?,?,?)");

@@ -1,4 +1,4 @@
-package com.softnero.Crawler;
+package com.softnero.crwaler;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
